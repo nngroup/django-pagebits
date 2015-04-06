@@ -20,7 +20,6 @@ setup(
     install_requires=[
         'django >= 1.4.0',
         'django-ckeditor >= 3.6.2.1',
-        'PIL >= 1.1.7',
         'Pillow >= 1.7.7',
     ],
     tests_require=[
