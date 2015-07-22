@@ -33,6 +33,7 @@ class BitGroupAdminForm(forms.ModelForm):
     )
 
     class Meta:
+        exclude = []
         model = BitGroup
 
 
