@@ -123,6 +123,7 @@ class PageEditAdmin(admin.ModelAdmin):
         admin_form = PageAdminForm()
         fields = admin_form.get_dynamic_fields(obj)
         form = type('PageAdminForm', (forms.ModelForm,), fields)
+        form._meta.model = PageEdit  # Super gross hack
         return form
 
     def change_view(self, request, object_id, form_url='', extra_context=None):
