@@ -224,6 +224,7 @@ class Page(models.Model):
     )
     template = models.ForeignKey(PageTemplate, related_name='pages')
     bit_groups = models.ManyToManyField(BitGroup, related_name='pages')
+    include_in_search = models.BooleanField(default=True)
 
     class Meta:
         verbose_name = _('Page')
