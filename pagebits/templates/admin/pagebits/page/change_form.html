@@ -49,7 +49,7 @@
 {% endif %}
 
 {% block field_sets %}
-{{ instructions }}
+{{ instructions|safe }}
 {% for fieldset in adminform %}
   {% include "admin/includes/fieldset.html" %}
 {% endfor %}

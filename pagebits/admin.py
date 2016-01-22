@@ -127,18 +127,20 @@ class PageEditAdmin(admin.ModelAdmin):
         return form
 
     def change_view(self, request, object_id, form_url='', extra_context=None):
+        obj = self.get_object(request, unquote(object_id))
+
+        if obj.instructions:
+            extra_context = extra_context or {}
+            extra_context.update({
+                'instructions': obj.instructions
+            })
+
         template_response = super(PageEditAdmin, self).change_view(
             request,
             object_id,
             form_url,
             extra_context
         )
-
-        obj = self.get_object(request, unquote(object_id))
-
-        if obj.instructions:
-            safe_instructions = mark_safe(obj.instructions)
-            template_response.context_data['instructions'] = safe_instructions
 
         return template_response
 
