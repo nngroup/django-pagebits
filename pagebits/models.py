@@ -7,6 +7,7 @@ from django.template.defaultfilters import slugify
 from django.utils import timezone
 from django.utils.safestring import mark_safe
 from django.utils.translation import ugettext_lazy as _
+from django.utils.text import slugify
 
 from .managers import BitGroupManager
 from .utils import bitgroup_cache_key
@@ -133,6 +134,8 @@ class PageBit(models.Model):
         self.modified = timezone.now()
         self.full_clean()
 
+        self.context_name = self.create_valid_context_name(self.context_name)
+
         super(PageBit, self).save(*args, **kwargs)
 
     def resolve(self):
@@ -145,6 +148,9 @@ class PageBit(models.Model):
         elif self.type == self.IMAGE:
             # Return the actual image itself
             return self.data.image
+
+    def create_valid_context_name(self, context_name):
+        return slugify(context_name).replace('-', '_')
 
 
 @receiver(post_save, sender=PageBit)
