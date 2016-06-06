@@ -156,6 +156,11 @@ class PageEditAdmin(admin.ModelAdmin):
                 bit.data.data = form.cleaned_data[key]
             else:
                 bit.data.image = form.cleaned_data[key]
+                if not bit.data.image:
+                    # easy-thumbnails signal handlers expect a None if
+                    # there is no image so make sure we don't pass along
+                    # the False value from an image clear
+                    bit.data.image = None
             bit.data.save()
 
     def has_add_permission(self, request):
