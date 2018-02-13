@@ -64,6 +64,6 @@ class PageView(PageBitView):
 
         self.group_slugs = [x.slug for x in self.page.bit_groups.all()]
         context = self.get_context_data(**kwargs)
+        context.update({"page": self.page})
 
         return TemplateResponse(request, self.page.template.path, context)
-
